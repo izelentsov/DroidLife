@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, LifeGameActivity!</string>
+    <string name="app_name">Life Game</string>
+    <string name="settings_act_name">Life Game</string>
+    <string name="runBtnLabel">Пуск</string>
+    <string name="stopBtnLabel">Стоп</string>
+    <string name="stepBtnLabel">Шаг</string>
+    <string name="clearBtnLabel">Очистить</string>
+    <string name="genCountLabel">Поколение: </string>
+    <string name="intervalSettingLabel">Интервал шага, мс</string>
+    <string name="customRulesCheckBoxLabel">Пользовательские правила</string>
+    <string name="neighsToAliveSettingLabel">Соседей для оживания</string>
+    <string name="minNeighsToLiveSettingLabel">Мин. соседей для жизни</string>
+    <string name="maxNeighsToLiveSettingLabel">Макс. соседей для жизни</string>
+    <string name="miClear">Очистить</string>
+    <string name="miSettings">Настройки</string>
+<string name="settingsConfirmBtnLabel">Применить</string>
+<string name="settingsCancelBtnLabel">Отмена</string>
+</resources>

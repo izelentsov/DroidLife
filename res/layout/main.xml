@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootview" 
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    >
+     
+    
+    <!-- 
+    <ScrollView
+        android:layout_width="match_parent" 
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FF0000FF"
+        >        
+     -->    
+     
+        <GridView 
+	       android:id="@+id/gridview" 
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content" 
+	       android:verticalSpacing="1dp"
+	       android:horizontalSpacing="1dp" 
+	       android:gravity="center" 
+	       android:layout_weight="1"
+	       android:stretchMode="columnWidth"
+	       />
+
+    <!-- 
+    </ScrollView>
+     --> 
+     
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/genCountLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/genCountLabel"
+            />
+        <TextView
+            android:id="@+id/genCountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/genCountLabel"
+            android:text="1"
+            />
+    </RelativeLayout>
+        
+        
+             
+     
+   
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_weight="0"
+        >
+        <Button
+            android:id="@+id/runBtn" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/runBtnLabel"
+            android:gravity="center_horizontal|center_vertical"
+            />
+        <Button
+            android:id="@+id/stepBtn" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/stepBtnLabel"
+            android:gravity="center_horizontal|center_vertical"
+            />
+        <Button
+            android:id="@+id/clearBtn" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/clearBtnLabel"
+            android:gravity="center_horizontal|center_vertical"
+            />
+    
+    </LinearLayout>
+
+</LinearLayout>
