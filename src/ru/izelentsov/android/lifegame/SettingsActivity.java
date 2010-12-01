@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+
 public class SettingsActivity extends Activity {
 
 	private Bundle settingsBundle = null;
