@@ -25,8 +25,7 @@ public class LifeGameActivity extends Activity {
 	
 	
 	private static final int SETTINGS_ACTIVITY = 0;
-	
-	
+		
 	
 	
     /** Called when the activity is first created. */
