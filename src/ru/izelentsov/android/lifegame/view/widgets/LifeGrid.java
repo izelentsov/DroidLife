@@ -5,8 +5,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,6 +22,8 @@ public class LifeGrid extends View {
 	private Paint linePaint = null;
 	private Paint bgPaint = null;
 	private IListener listener = null;
+	private GestureDetector gestureDetector = null;
+	private Point basePoint = null;
 	
 	
 	
@@ -74,7 +79,9 @@ public class LifeGrid extends View {
 		
 		listener = new VoidListener ();
 		
-		setOnTouchListener (new TouchListener ());
+		basePoint = new Point (0, 0);
+		
+		gestureDetector = new GestureDetector (new GestListener ());
 	}
 	
 	
@@ -100,14 +107,14 @@ public class LifeGrid extends View {
 		 int width = getWidth ();
 		 int height = getHeight ();
 		 
-		 float x = 0;
+		 float x = basePoint.x;
 		 float xStep = (float)((float)width / (float)game.width ());
 		 for (int i = 0; i < game.width () - 1; ++i) {
 			 x += xStep; 
 			 canvas.drawLine (x, 0, x, height, linePaint);
 		 }
 		 
-		 float y = 0;
+		 float y = basePoint.y;
 		 float yStep = (float)((float)height / (float)game.height ());
 		 for (int j = 0; j < game.height () - 1; ++j) {
 			 y += yStep; 
@@ -119,13 +126,17 @@ public class LifeGrid extends View {
 	 private void drawAliveCells (Canvas canvas) {
 		 float xStep = (float)((float)getWidth () / (float)game.width ());
 		 float yStep = (float)((float)getHeight () / (float)game.height ());
+		 int xPos = 0;
+		 int yPos = 0;
 		 
 		 for (int y = 0; y < game.height (); ++y) {
 			 for (int x = 0; x < game.width (); ++ x) {
 				 if (game.isAlive (x, y)) {
+					 xPos = (int)(x * xStep) + basePoint.x;
+					 yPos = (int)(y * yStep) + basePoint.y;
 					 canvas.drawRect (
-							 new Rect ((int)(x * xStep), (int)(y * yStep), 
-									 (int)((x + 1) * xStep), (int)((y + 1) * yStep)), 
+							 new Rect (xPos, yPos, 
+									 (int)(xPos + xStep), (int)(yPos + yStep)), 
 							 linePaint);
 				 }
 			 }
@@ -134,24 +145,59 @@ public class LifeGrid extends View {
 
 	 
 	 
-	 private class TouchListener implements View.OnTouchListener {
+	@Override
+	public boolean onTouchEvent (MotionEvent event) {
+		return gestureDetector.onTouchEvent (event);
+	}
+
+	
+	
+	
+	private class GestListener implements OnGestureListener {
 
 		@Override
-		public boolean onTouch (View aView, MotionEvent anEvent) {
-			if (anEvent.getAction () == MotionEvent.ACTION_DOWN) {
-				float xStep = (float)((float)getWidth () / (float)game.width ());
-				float yStep = (float)((float)getHeight () / (float)game.height ());
-				int xPos = (int)(anEvent.getX () / xStep);
-				int yPos = (int)(anEvent.getY () / yStep);
-				listener.cellTouched (xPos, yPos);
-				return true;
-			} else {
-				return false;
-			}
+		public boolean onDown (MotionEvent e) {
+			// TODO Auto-generated method stub
+			return true;
 		}
 
-		 
-	 }
-	 
+		@Override
+		public boolean onFling (MotionEvent e1, MotionEvent e2,
+				float velocityX, float velocityY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void onLongPress (MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean onScroll (MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
+			basePoint.offset (-(int)distanceX, -(int)distanceY);
+			postInvalidate ();
+			return true;
+		}
+
+		@Override
+		public void onShowPress (MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean onSingleTapUp (MotionEvent e) {
+			float xStep = (float)((float)getWidth () / (float)game.width ());
+			float yStep = (float)((float)getHeight () / (float)game.height ());
+			int xPos = (int)(e.getX () / xStep);
+			int yPos = (int)(e.getY () / yStep);
+			listener.cellTouched (xPos, yPos);
+			return true;
+		}
+		
+	}
 	
 }
