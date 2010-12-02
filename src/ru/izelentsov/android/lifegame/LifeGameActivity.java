@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 
 
+
 public class LifeGameActivity extends Activity {
 	
 	private Game game = null;

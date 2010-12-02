@@ -3,6 +3,7 @@ package ru.izelentsov.android.lifegame.view;
 import ru.izelentsov.android.lifegame.R;
 import ru.izelentsov.android.lifegame.logic.GameController;
 import ru.izelentsov.android.lifegame.model.Game;
+import ru.izelentsov.android.lifegame.view.widgets.LifeGrid;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
@@ -24,7 +25,8 @@ public class GameView {
 	private GameController gameController = null;
 	private GameListener gameListener = null;
 	
-	private GridAdapter gridAdapter = null;
+//	private GridAdapter gridAdapter = null;
+	private LifeGrid grid = null;
 	
 	private View rootView = null;
 	private Button runButton = null;
@@ -46,9 +48,14 @@ public class GameView {
 	public void activate (Activity anActivity) {
 		anActivity.setContentView (R.layout.main);
 		
-		gridAdapter = new GridAdapter (anActivity, 
-				(GridView) anActivity.findViewById(R.id.gridview));
-		gridAdapter.resetGrid ();
+//		gridAdapter = new GridAdapter (anActivity, 
+//				(GridView) anActivity.findViewById(R.id.gridview));
+//		gridAdapter.resetGrid ();
+		
+		grid = (LifeGrid) anActivity.findViewById (R.id.gridview);
+		grid.setGame (game);
+		grid.setListener (new GridListener ());
+		
 		
 		rootView = (View) anActivity.findViewById (R.id.rootview);
 		setupButtons (anActivity);
@@ -105,8 +112,9 @@ public class GameView {
 				@Override
 				public void run () {
 					genCountValue.setText (String.valueOf (game.generationNumber ()));
-					gridAdapter.resetGrid ();
-					gridAdapter.notifyDataSetChanged ();
+//					gridAdapter.resetGrid ();
+//					gridAdapter.notifyDataSetChanged ();
+					grid.invalidate ();
 				}
 			});
 		}
@@ -117,7 +125,8 @@ public class GameView {
 				@Override
 				public void run () {
 					genCountValue.setText (String.valueOf (game.generationNumber ()));
-					gridAdapter.notifyDataSetChanged ();
+//					gridAdapter.notifyDataSetChanged ();
+					grid.invalidate ();
 				}
 			});
 		}
@@ -192,6 +201,19 @@ public class GameView {
 			}
 		}
 	  
+	}
+	
+	
+	
+	
+	
+	private class GridListener implements LifeGrid.IListener {
+
+		@Override
+		public void cellTouched (int xPos, int yPos) {
+			gameController.cellToggleRequested (xPos, yPos);			
+		}
+		
 	}
 	
 }

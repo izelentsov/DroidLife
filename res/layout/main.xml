@@ -17,6 +17,7 @@
         >        
      -->    
      
+     <!-- 
         <GridView 
 	       android:id="@+id/gridview" 
 	       android:layout_width="wrap_content"
@@ -27,6 +28,15 @@
 	       android:layout_weight="1"
 	       android:stretchMode="columnWidth"
 	       />
+	  -->
+	  
+	  <view
+	       android:id="@+id/gridview" 
+	       class="ru.izelentsov.android.lifegame.view.widgets.LifeGrid"
+	       android:layout_width="wrap_content"
+           android:layout_height="wrap_content" 
+           android:layout_weight="1"
+	      />
 
     <!-- 
     </ScrollView>

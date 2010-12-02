@@ -99,7 +99,21 @@ class Generation {
 		return n;
 	}
 
+	
+	
+	public GameConf getConfiguration () {
+		GameConf conf = new GameConf ();
+		for (int y = 0; y < height; ++y) {
+			for (int x = 0; x < width; ++x) {
+				if (data[y][x] == true) {
+					conf.addCell (x, y);
+				}
+			}
+		}
+		return conf;
+	}
 
+	
 	
 	public void print () {
 		for (int y = 0; y < height; ++y) {
