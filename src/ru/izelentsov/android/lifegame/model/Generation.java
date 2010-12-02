@@ -18,9 +18,13 @@ class Generation {
 		data = new boolean [height] [width];
 	}
 
-	public Generation (int aWidth, int aHeight, GameConf anInitialConf) {
+	public Generation (int aWidth, int aHeight, GameConf anInitialConf, boolean wrapConf) {
 		this (aWidth, aHeight);
-		anInitialConf.applyTo (this);
+		if (wrapConf) {
+			anInitialConf.applyTo (this);
+		} else {
+			anInitialConf.applyWithoutWrapTo (this);
+		}
 	}
 
 	

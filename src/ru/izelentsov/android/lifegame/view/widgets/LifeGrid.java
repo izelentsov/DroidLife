@@ -141,8 +141,8 @@ public class LifeGrid extends View {
 			if (anEvent.getAction () == MotionEvent.ACTION_DOWN) {
 				float xStep = (float)((float)getWidth () / (float)game.width ());
 				float yStep = (float)((float)getHeight () / (float)game.height ());
-				int xPos = (int)anEvent.getX () / (int)xStep;
-				int yPos = (int)anEvent.getY () / (int)yStep;
+				int xPos = (int)(anEvent.getX () / xStep);
+				int yPos = (int)(anEvent.getY () / yStep);
 				listener.cellTouched (xPos, yPos);
 				return true;
 			} else {

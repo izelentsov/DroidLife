@@ -54,6 +54,20 @@ public class GameConf {
 		}
 	}
 	
+	public void applyWithoutWrapTo (Generation aGen) {
+		Iterator<Cell> i = cells.iterator ();
+		int xPos = 0;
+		int yPos = 0;
+		while (i.hasNext ()) {
+			Cell c = i.next ();
+			xPos = c.x () + left ();
+			yPos = c.y () + top ();
+			if ((xPos < aGen.width ()) && (yPos < aGen.height ())) {
+				aGen.setAlive (xPos, yPos, true);
+			}
+		}
+	}	
+	
 	
 	
 	public void setLeftTopCell (int xPos, int yPos) {

@@ -17,7 +17,7 @@
         >        
      -->    
      
-     <!-- 
+      <!--
         <GridView 
 	       android:id="@+id/gridview" 
 	       android:layout_width="wrap_content"
@@ -29,18 +29,22 @@
 	       android:stretchMode="columnWidth"
 	       />
 	  -->
-	  
-	  <view
-	       android:id="@+id/gridview" 
-	       class="ru.izelentsov.android.lifegame.view.widgets.LifeGrid"
-	       android:layout_width="wrap_content"
-           android:layout_height="wrap_content" 
-           android:layout_weight="1"
-	      />
 
     <!-- 
     </ScrollView>
      --> 
+     	  
+	  
+    <view
+	   android:id="@+id/gridview" 
+	   class="ru.izelentsov.android.lifegame.view.widgets.LifeGrid"
+	   android:layout_width="wrap_content"
+       android:layout_height="wrap_content" 
+       android:layout_weight="1"
+       />
+	      
+
+
      
     <RelativeLayout
         android:layout_width="match_parent"

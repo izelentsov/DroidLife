@@ -3,17 +3,12 @@ package ru.izelentsov.android.lifegame.view;
 import ru.izelentsov.android.lifegame.R;
 import ru.izelentsov.android.lifegame.logic.GameController;
 import ru.izelentsov.android.lifegame.model.Game;
+import ru.izelentsov.android.lifegame.view.widgets.GridViewAdapter;
 import ru.izelentsov.android.lifegame.view.widgets.LifeGrid;
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -21,12 +16,17 @@ import android.widget.TextView;
 public class GameView {
 
 	
+	private interface IGameViewController {
+		public void modelChanged ();
+		public void modelUpdated ();
+	}
+	
+	
 	private Game game = null;
 	private GameController gameController = null;
 	private GameListener gameListener = null;
 	
-//	private GridAdapter gridAdapter = null;
-	private LifeGrid grid = null;
+	private IGameViewController gameViewController = null;
 	
 	private View rootView = null;
 	private Button runButton = null;
@@ -34,6 +34,7 @@ public class GameView {
 	private Button clearButton = null;
 	
 	private TextView genCountValue = null;
+	
 	
 	
 	
@@ -48,14 +49,10 @@ public class GameView {
 	public void activate (Activity anActivity) {
 		anActivity.setContentView (R.layout.main);
 		
-//		gridAdapter = new GridAdapter (anActivity, 
+		gameViewController = new LifeGridController (
+				(LifeGrid) anActivity.findViewById (R.id.gridview));
+//		gameViewController = new GridAdapterController (anActivity, 
 //				(GridView) anActivity.findViewById(R.id.gridview));
-//		gridAdapter.resetGrid ();
-		
-		grid = (LifeGrid) anActivity.findViewById (R.id.gridview);
-		grid.setGame (game);
-		grid.setListener (new GridListener ());
-		
 		
 		rootView = (View) anActivity.findViewById (R.id.rootview);
 		setupButtons (anActivity);
@@ -102,7 +99,6 @@ public class GameView {
 	
 	
 	
-	
 
 	private class GameListener implements Game.IListener {
 
@@ -112,9 +108,7 @@ public class GameView {
 				@Override
 				public void run () {
 					genCountValue.setText (String.valueOf (game.generationNumber ()));
-//					gridAdapter.resetGrid ();
-//					gridAdapter.notifyDataSetChanged ();
-					grid.invalidate ();
+					gameViewController.modelChanged ();
 				}
 			});
 		}
@@ -125,95 +119,72 @@ public class GameView {
 				@Override
 				public void run () {
 					genCountValue.setText (String.valueOf (game.generationNumber ()));
-//					gridAdapter.notifyDataSetChanged ();
-					grid.invalidate ();
+					gameViewController.modelUpdated ();
 				}
 			});
 		}
 	}
 	
 	
+
 	
-	private class GridAdapter extends BaseAdapter {
+	private class LifeGridController 
+	implements IGameViewController, LifeGrid.IListener {
+
+		private LifeGrid grid = null;
 		
-	    private Context context = null;
-	    private GridView grid = null;
-		private int curColumnsNum = 0;
-
-	    
-	    public GridAdapter (Context c, GridView aGridView) {
-	        context = c;
-	        grid = aGridView;
-	        aGridView.setAdapter (this);
-	        aGridView.setOnItemClickListener (new OnItemClickListener () {
-		        public void onItemClick (AdapterView<?> parent, View v, 
-		        		int position, long id) {
-			        int xPos = position % game.width ();
-			        int yPos = position / game.width ();	        	
-		        	gameController.cellToggleRequested (xPos, yPos);
-		        }
-		    });
-	    }
-
-	    @Override
-	    public int getCount() {
-	        int count = game.height () * game.width ();
-	    	System.out.println ("Count: " + count);
-	    	return count;
-	    }
-
-	    @Override
-	    public Object getItem(int position) {
-	        return null;
-	    }
-
-	    @Override
-	    public long getItemId(int position) {
-	        int rowId = position / game.width ();
-	    	System.out.println ("Row id: " + rowId);
-	    	return rowId;
-	    }
-
-	    @Override
-	    public View getView(int position, View convertView, ViewGroup parent) {
-	        ImageView view = null;
-	        if (convertView == null) {  // if it's not recycled, initialize some attributes
-	            view = new ImageView (context);
-	            view.setPadding(0, 0, 0, 0);
-	            view.setAdjustViewBounds (true);
-	        } else {
-	            view = (ImageView)convertView;
-	        }
-
-	        int xPos = position % game.width ();
-	        int yPos = position / game.width ();
-	        view.setImageResource (game.isAlive (xPos, yPos) ? 
-	        		R.drawable.cell_alive : R.drawable.cell_blank);
-
-	        view.setBackgroundColor (0xFFFF0000);
-	        return view;
-	    }
-
-	    public void resetGrid () {
-			if (game.width () != curColumnsNum) {
-				curColumnsNum = game.width ();
-				grid.setNumColumns (curColumnsNum);
-			}
+		public LifeGridController (LifeGrid aGrid) {
+			grid = aGrid;
+			grid.setGame (game);
+			grid.setListener (this);
 		}
-	  
-	}
-	
-	
-	
-	
-	
-	private class GridListener implements LifeGrid.IListener {
+		
+		@Override
+		public void modelChanged () {
+			grid.invalidate ();
+		}
 
+		@Override
+		public void modelUpdated () {
+			grid.invalidate ();
+		}
+		
 		@Override
 		public void cellTouched (int xPos, int yPos) {
 			gameController.cellToggleRequested (xPos, yPos);			
 		}
-		
 	}
+	
+	
+	
+//	private class GridAdapterController
+//	implements IGameViewController, GridViewAdapter.IListener {
+//
+//		private GridViewAdapter gridAdapter = null;
+//		
+//		
+//		public GridAdapterController (Activity anActivity, GridView aGrid) {
+//			gridAdapter = new GridViewAdapter (anActivity, aGrid, game);
+//			gridAdapter.setListener (this);
+//			gridAdapter.resetGrid ();
+//		}
+//		
+//		
+//		@Override
+//		public void cellTouched (int xPos, int yPos) {
+//			gameController.cellToggleRequested (xPos, yPos);
+//		}
+//
+//		@Override
+//		public void modelChanged () {
+//			gridAdapter.resetGrid ();
+//			gridAdapter.notifyDataSetChanged ();
+//		}
+//
+//		@Override
+//		public void modelUpdated () {
+//			gridAdapter.notifyDataSetChanged ();
+//		}
+//	}
 	
 }
