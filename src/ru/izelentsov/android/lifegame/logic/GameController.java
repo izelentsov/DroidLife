@@ -4,21 +4,30 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ru.izelentsov.android.lifegame.model.Game;
+import ru.izelentsov.android.lifegame.model.Rules;
 
 
 public class GameController {
 
 	
+	
+	
 	private Game game = null;
+	
 	private Timer runTimer = null;
 	private long runStepIntervalMS = 1000;
 	
 	
-	public GameController (Game aGame) {
-		game = aGame;
+	
+	public GameController (Rules aGameRules) {
+        game = new Game (14, 14, aGameRules);
+		
 	}
 	
 	
+	public Game game () {
+		return game;
+	}
 	
 	public void setRunStepInterval (long anIntervalMS) {
 		runStepIntervalMS = anIntervalMS;

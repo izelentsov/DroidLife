@@ -1,7 +1,7 @@
 package ru.izelentsov.android.lifegame.view;
 
 import ru.izelentsov.android.lifegame.R;
-import ru.izelentsov.android.lifegame.model.SettingsKeys;
+import ru.izelentsov.android.lifegame.logic.SettingsKeys;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;

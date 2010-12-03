@@ -36,9 +36,9 @@ public class GameView {
 	
 	
 	
-	public GameView (Game aGame, GameController aGameController) {
-		game = aGame;
+	public GameView (GameController aGameController) {
 		gameController = aGameController;
+		game = aGameController.game ();
 		gameListener = new GameListener ();
 		game.setListener (gameListener);
 	}
