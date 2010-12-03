@@ -34,14 +34,8 @@ public class LifeGameActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        
         customRules = DEFAULT_RULES;
-        
         game = new Game (14, 14, DEFAULT_RULES);
-        game.setAlive (1, 1, true);
-        game.setAlive (1, 2, true);
-        game.setAlive (2, 2, true);
-        
         gameController = new GameController (game);
         gameView = new GameView (game, gameController);
 

@@ -3,12 +3,10 @@ package ru.izelentsov.android.lifegame.view;
 import ru.izelentsov.android.lifegame.R;
 import ru.izelentsov.android.lifegame.logic.GameController;
 import ru.izelentsov.android.lifegame.model.Game;
-import ru.izelentsov.android.lifegame.view.widgets.GridViewAdapter;
 import ru.izelentsov.android.lifegame.view.widgets.LifeGrid;
 import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.TextView;
 
 
