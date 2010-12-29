@@ -32,10 +32,10 @@ public class LifeGameActivity extends Activity {
 
         settings = new GameSettings (getPreferences (MODE_PRIVATE));
         gameController = new GameController (settings.defaultRules ());
-        gameView = new GameView (gameController);
-
         settings.setGameController (gameController);
-        setGameView ();
+
+        gameView = new GameView (gameController);
+        gameView.activate (this);
     }
 
     
@@ -64,7 +64,7 @@ public class LifeGameActivity extends Activity {
     		gameController.clearRequested ();
     		return true;
     	case R.id.miSettings:
-    		setSettingsView ();
+    		startSettingsActivity ();
     		return true;
     	default:
     		return super.onOptionsItemSelected (item);
@@ -72,12 +72,7 @@ public class LifeGameActivity extends Activity {
     }
     
     
-    private void setGameView () {
-    	gameView.activate (this);
-    }
-    
-    
-    private void setSettingsView () {
+    private void startSettingsActivity () {
     	Intent i = new Intent(this, SettingsActivity.class);
     	i.putExtras (settings.get ());
     	startActivityForResult(i, SETTINGS_ACTIVITY);
