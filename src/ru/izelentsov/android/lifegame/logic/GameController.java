@@ -9,9 +9,6 @@ import ru.izelentsov.android.lifegame.model.Rules;
 
 public class GameController {
 
-	
-	
-	
 	private Game game = null;
 	
 	private Timer runTimer = null;

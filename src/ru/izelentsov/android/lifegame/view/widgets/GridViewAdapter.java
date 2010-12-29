@@ -2,7 +2,6 @@ package ru.izelentsov.android.lifegame.view.widgets;
 
 import ru.izelentsov.android.lifegame.R;
 import ru.izelentsov.android.lifegame.model.Game;
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,7 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class GridViewAdapter extends BaseAdapter {
 
-	private Context context = null;
     private GridView grid = null;
 	private int curColumnsNum = 0;
 	private Game game = null;
@@ -35,8 +33,7 @@ public class GridViewAdapter extends BaseAdapter {
 	
 
     
-    public GridViewAdapter (Context c, GridView aGridView, Game aGame) {
-        context = c;
+    public GridViewAdapter (GridView aGridView, Game aGame) {
         grid = aGridView;
         game = aGame;
         listener = new VoidListener ();
@@ -86,7 +83,7 @@ public class GridViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView view = null;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
-            view = new ImageView (context);
+            view = new ImageView (parent.getContext ());
             view.setPadding(0, 0, 0, 0);
             view.setAdjustViewBounds (true);
         } else {

@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 public class LifeGameActivity extends Activity {
 	
+	private GameController sGameController = null;
+	
+	
 	private GameSettings settings = null;
 	private GameController gameController = null;
 	private GameView gameView = null;
@@ -31,7 +34,10 @@ public class LifeGameActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         settings = new GameSettings (getPreferences (MODE_PRIVATE));
-        gameController = new GameController (settings.defaultRules ());
+        if (sGameController == null) {
+        	sGameController = new GameController (settings.defaultRules ());
+        }
+        gameController = sGameController; //new GameController (settings.defaultRules ());
         settings.setGameController (gameController);
 
         gameView = new GameView (gameController);
