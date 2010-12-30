@@ -1,9 +1,7 @@
 package ru.izelentsov.android.lifegame.view;
 
 import ru.izelentsov.android.lifegame.R;
-import ru.izelentsov.android.lifegame.logic.SettingsKeys;
 import android.app.Activity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -45,12 +43,11 @@ public class SettingsView {
 	
 	
 	
-	public SettingsView (Bundle aSettingsBundle, Activity anActivity) {
+	public SettingsView (Activity anActivity) {
 		listener = new VoidListener ();
 		anActivity.setContentView (R.layout.settings);
 		
 		setupControls (anActivity);
-		setValues (aSettingsBundle);
 	}
 	
 	
@@ -88,23 +85,26 @@ public class SettingsView {
 	}
 	
 	
-	private void setValues (Bundle aSettingsBundle) {
-		intervalEdit.setText (String.valueOf (
-				aSettingsBundle.getLong (SettingsKeys.INTERVAL)));
+	public void setInterval (long anInterval) {
+		intervalEdit.setText (String.valueOf (anInterval));
+	}
 		
-		boolean useCustomRules = aSettingsBundle.getBoolean (SettingsKeys.CUSTOM_RULES);
-		customRulesBox.setChecked (useCustomRules);
-		
-		nToAliveEdit.setText (String.valueOf (
-				aSettingsBundle.getInt (SettingsKeys.N_TO_ALIVE)));
-		minNToLiveEdit.setText (String.valueOf (
-				aSettingsBundle.getInt (SettingsKeys.MIN_N_TO_LIVE)));
-		maxNToLiveEdit.setText (String.valueOf (
-				aSettingsBundle.getInt (SettingsKeys.MAX_N_TO_LIVE)));
-		
-		enableCustomRules (useCustomRules);
+	public void setUseCustomRules (boolean aUseFlag) {
+		customRulesBox.setChecked (aUseFlag);
 	}
 	
+	public void setNToAlive (int aValue) {
+		nToAliveEdit.setText (String.valueOf (aValue));
+	}
+	
+	public void setMinNToLive (int aValue) {
+		minNToLiveEdit.setText (String.valueOf (aValue));
+	}
+	
+	public void setMaxNToLive (int aValue) {
+		maxNToLiveEdit.setText (String.valueOf (aValue));
+	}
+		
 	
 	
 	private void enableCustomRules (boolean isEnabled) {
@@ -115,56 +115,44 @@ public class SettingsView {
 	
 	
 	
-	public void storeSettings (Bundle aSettingsBundle) {
-		storeInterval (aSettingsBundle);
-		storeCustomRulesFlag (aSettingsBundle);
-		storeCustomRules (aSettingsBundle);
-	}
-	
-	
-	
-	private void storeInterval (Bundle aSettingsBundle) {
-		long num = -1;
+	public long getInterval () {
+		long ret = -1;
 		try {
-			num = Long.parseLong (intervalEdit.getText ().toString ());
+			ret = Long.parseLong (intervalEdit.getText ().toString ());
 		} catch (NumberFormatException e) {
-			num = -1;
+			ret = -1;
 		}
-		if (num >= 0) {
-			aSettingsBundle.putLong (SettingsKeys.INTERVAL, num);
-		}
+		return ret;
 	}
 	
 	
-	private void storeCustomRules (Bundle aSettingsBundle) {
-		storeNumericValue (nToAliveEdit.getText ().toString ().trim (), 
-				SettingsKeys.N_TO_ALIVE, aSettingsBundle);
-		storeNumericValue (minNToLiveEdit.getText ().toString ().trim (), 
-				SettingsKeys.MIN_N_TO_LIVE, aSettingsBundle);
-		storeNumericValue (maxNToLiveEdit.getText ().toString ().trim (), 
-				SettingsKeys.MAX_N_TO_LIVE, aSettingsBundle);
+	public boolean getUseCustomRules () {
+		return customRulesBox.isChecked ();
+	}
+	
+	
+	public int getNToAlive () {
+		return getNumericValue (nToAliveEdit.getText ().toString ().trim ());
+	}
+	
+	public int getMinNToLive () {
+		return getNumericValue (minNToLiveEdit.getText ().toString ().trim ());
+	}
+	
+	public int getMaxNToLive () {
+		return getNumericValue (maxNToLiveEdit.getText ().toString ().trim ());
 	}
 	
 	
 	
-	private void storeCustomRulesFlag (Bundle aSettingsBundle) {
-		aSettingsBundle.putBoolean (SettingsKeys.CUSTOM_RULES, 
-				customRulesBox.isChecked ());
-	}
-	
-	
-	
-	private void storeNumericValue (String aTextValue, String aSettingKey,
-			Bundle aSettingsBundle) {
-		int num = -1;
+	private int getNumericValue (String aTextValue) {
+		int ret = -1;
 		try {
-			num = Integer.parseInt (aTextValue);
+			ret = Integer.parseInt (aTextValue);
 		} catch (NumberFormatException e) {
-			num = -1;
+			ret = -1;
 		}
-		if (num >= 0) {
-			aSettingsBundle.putInt (aSettingKey, num);
-		}
+		return ret;
 	}
 	
 	

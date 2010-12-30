@@ -64,7 +64,7 @@ public class Game {
 	}
 	
 	
-	public void setGeneration (Generation aGeneration) {
+	private void setGeneration (Generation aGeneration) {
 		currentGen = aGeneration;
 		listener.newGeneration ();
 	}
@@ -75,6 +75,11 @@ public class Game {
 		aConf.applyTo (currentGen);
 		listener.generationChanged ();
 	}
+	
+	public GameConf getConf () {
+		return currentGen.getConfiguration ();
+	}
+	
 	
 	
 	public void setRules (Rules aRules) {

@@ -33,12 +33,11 @@ public class LifeGameActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        settings = new GameSettings (getPreferences (MODE_PRIVATE));
+        settings = new GameSettings (this);
         if (sGameController == null) {
         	sGameController = new GameController (settings.defaultRules ());
         }
-        gameController = sGameController; //new GameController (settings.defaultRules ());
-        settings.setGameController (gameController);
+        gameController = sGameController; 
 
         gameView = new GameView (gameController);
         gameView.activate (this);
@@ -80,7 +79,6 @@ public class LifeGameActivity extends Activity {
     
     private void startSettingsActivity () {
     	Intent i = new Intent(this, SettingsActivity.class);
-    	i.putExtras (settings.get ());
     	startActivityForResult(i, SETTINGS_ACTIVITY);
     }
 
@@ -94,7 +92,7 @@ public class LifeGameActivity extends Activity {
 		switch (requestCode) {
 		case SETTINGS_ACTIVITY:
 			if (resultCode == RESULT_OK) {
-				settings.apply (data.getExtras ());
+				settings.applyTo (gameController);
 				showSettings ();
 			}
 			break;

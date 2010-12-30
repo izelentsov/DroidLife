@@ -1,5 +1,6 @@
 package ru.izelentsov.android.lifegame.logic;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import ru.izelentsov.android.lifegame.model.Rules;
@@ -9,23 +10,38 @@ import ru.izelentsov.android.lifegame.model.Rules;
 
 public class GameSettings {
 
+	private static final String SETTINGS_FILE_NAME = "lifeGameRules";
 	private final Rules DEFAULT_RULES = new Rules (3, 2, 3);
 	
 	private SharedPreferences prefs = null;
-	private GameController controller = null;
-	private Rules customRules = null;
 	
 	
-	public GameSettings (SharedPreferences aPrefs) {
-		prefs = aPrefs;
-		customRules = DEFAULT_RULES;
+	public GameSettings (Context aContext) {
+		prefs = aContext.getSharedPreferences (
+				SETTINGS_FILE_NAME, Context.MODE_PRIVATE);
 	}
 	
+
 	
-	public void setGameController (GameController aController) {
-		controller = aController;
-		apply (get ());
+	
+	public void applyTo (GameController aController) {
+		Bundle settingsBundle = get ();
+		boolean useCustomRules = 
+			settingsBundle.getBoolean (SettingsKeys.CUSTOM_RULES);
+		
+		if (useCustomRules) {
+			Rules customRules = new Rules (
+					settingsBundle.getInt (SettingsKeys.N_TO_ALIVE),
+					settingsBundle.getInt (SettingsKeys.MIN_N_TO_LIVE),
+					settingsBundle.getInt (SettingsKeys.MAX_N_TO_LIVE));
+			aController.game ().setRules (customRules);
+		} else {
+			aController.game ().setRules (DEFAULT_RULES);
+		}
+		aController.setRunStepInterval (
+				settingsBundle.getLong (SettingsKeys.INTERVAL));
 	}
+	
 	
 	
 	public Bundle get () {
@@ -46,49 +62,29 @@ public class GameSettings {
 	}
 	
 	
-//	public Bundle getSettingsBundle () {
-//		Bundle settings = new Bundle ();
-//    	
-//    	settings.putLong (
-//    			SettingsKeys.INTERVAL, controller.getRunStepIntervalMS ());
-//    	settings.putBoolean (
-//    			SettingsKeys.CUSTOM_RULES, 
-//    			!controller.game ().rules ().equals (DEFAULT_RULES));
-//    	settings.putInt (
-//    			SettingsKeys.N_TO_ALIVE, customRules.neighsToAlive ());
-//    	settings.putInt (
-//    			SettingsKeys.MIN_N_TO_LIVE, customRules.minNeighsToLive ());
-//    	settings.putInt (
-//    			SettingsKeys.MAX_N_TO_LIVE, customRules.maxNeighsToLive ());
-//    	
-//    	return settings;
-//	}
-
-	
-	
-	public void apply (Bundle aSettingsBundle) {
-		boolean useCustomRules = 
-			aSettingsBundle.getBoolean (SettingsKeys.CUSTOM_RULES);
-		
-		if (useCustomRules) {
-			customRules = new Rules (
-					aSettingsBundle.getInt (SettingsKeys.N_TO_ALIVE),
-					aSettingsBundle.getInt (SettingsKeys.MIN_N_TO_LIVE),
-					aSettingsBundle.getInt (SettingsKeys.MAX_N_TO_LIVE));
-			controller.game ().setRules (customRules);
-		} else {
-			controller.game ().setRules (DEFAULT_RULES);
-		}
-		controller.setRunStepInterval (
-				aSettingsBundle.getLong (SettingsKeys.INTERVAL));
-		
-		storeSettings (aSettingsBundle);
+	public long getInterval () {
+		return prefs.getLong (SettingsKeys.INTERVAL, 500);
 	}
-
+	
+	public boolean getUseCustomRules () {
+		return prefs.getBoolean (SettingsKeys.CUSTOM_RULES, false);
+	}
+	
+	public int getNToAlive () {
+		return prefs.getInt (SettingsKeys.N_TO_ALIVE, 3);
+	}
+	
+	public int getMinNToLive () {
+		return prefs.getInt (SettingsKeys.MIN_N_TO_LIVE, 2);
+	}
+	
+	public int getMaxNToLive () {
+		return prefs.getInt (SettingsKeys.MAX_N_TO_LIVE, 3);
+	}
 	
 	
 	
-	private void storeSettings (Bundle aBundle) {
+	public void set (Bundle aBundle) {
 		SharedPreferences.Editor editor = prefs.edit ();
 		editor.putLong (SettingsKeys.INTERVAL, 
 				aBundle.getLong (SettingsKeys.INTERVAL));
@@ -105,6 +101,37 @@ public class GameSettings {
 
 	
 	
+	public void setInterval (long anInterval) {
+		SharedPreferences.Editor editor = prefs.edit ();
+		editor.putLong (SettingsKeys.INTERVAL, anInterval);
+		editor.commit ();
+	}
+	
+	public void setUseCustomRules (boolean aUseFlag) {
+		SharedPreferences.Editor editor = prefs.edit ();
+		editor.putBoolean (SettingsKeys.CUSTOM_RULES, aUseFlag);
+		editor.commit ();
+	}
+	
+	public void setNToAlive (int aValue) {
+		SharedPreferences.Editor editor = prefs.edit ();
+		editor.putInt (SettingsKeys.N_TO_ALIVE, aValue);
+		editor.commit ();
+	}
+	
+	public void setMinNToLive (int aValue) {
+		SharedPreferences.Editor editor = prefs.edit ();
+		editor.putInt (SettingsKeys.MIN_N_TO_LIVE, aValue);
+		editor.commit ();
+	}
+	
+	public void setMaxNToLive (int aValue) {
+		SharedPreferences.Editor editor = prefs.edit ();
+		editor.putInt (SettingsKeys.MAX_N_TO_LIVE, aValue);
+		editor.commit ();
+	}
+	
+	
 	
 	public Rules defaultRules () {
 		return DEFAULT_RULES;
@@ -114,18 +141,11 @@ public class GameSettings {
 	
 	public String getSummary () {
 		StringBuffer summary = new StringBuffer ();
-		Bundle settings = get ();
-
-		summary.append ("Interval: ").append (
-				settings.getLong (SettingsKeys.INTERVAL)).append ("\n");
-		summary.append ("Custom: ").append (
-				settings.getBoolean (SettingsKeys.CUSTOM_RULES)).append ("\n");
-		summary.append ("N to alive: ").append (
-				settings.getInt (SettingsKeys.N_TO_ALIVE)).append ("\n");
-		summary.append ("Min N to live: ").append (
-				settings.getInt (SettingsKeys.MIN_N_TO_LIVE)).append ("\n");
-		summary.append ("Max N to live: ").append (
-				settings.getInt (SettingsKeys.MAX_N_TO_LIVE)).append ("\n");
+		summary.append ("Interval: ").append (getInterval ()).append ("\n");
+		summary.append ("Custom: ").append (getUseCustomRules ()).append ("\n");
+		summary.append ("N to alive: ").append (getNToAlive ()).append ("\n");
+		summary.append ("Min N to live: ").append (getMinNToLive ()).append ("\n");
+		summary.append ("Max N to live: ").append (getMaxNToLive ()).append ("\n");
 		return summary.toString ();
 	}
 	

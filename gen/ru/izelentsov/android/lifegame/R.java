@@ -18,27 +18,32 @@ public final class R {
         public static final int mi_settings=0x7f020004;
     }
     public static final class id {
-        public static final int cancelBtn=0x7f06000e;
-        public static final int clearBtn=0x7f060006;
-        public static final int confirmBtn=0x7f06000d;
-        public static final int customRulesCheckBox=0x7f060009;
-        public static final int genCountLabel=0x7f060002;
-        public static final int genCountValue=0x7f060003;
-        public static final int gridview=0x7f060001;
-        public static final int intervalSettingEdit=0x7f060008;
-        public static final int maxNeighsToLiveSettingEdit=0x7f06000c;
-        public static final int miClear=0x7f06000f;
-        public static final int miSettings=0x7f060010;
-        public static final int minNeighsToLiveSettingEdit=0x7f06000b;
-        public static final int neighsToAliveSettingEdit=0x7f06000a;
-        public static final int rootSettingsView=0x7f060007;
-        public static final int rootview=0x7f060000;
-        public static final int runBtn=0x7f060004;
-        public static final int stepBtn=0x7f060005;
+        public static final int cancelBtn=0x7f060012;
+        public static final int clearBtn=0x7f06000a;
+        public static final int confCancelBtn=0x7f060003;
+        public static final int confSaveBtn=0x7f060002;
+        public static final int confSaveEdit=0x7f060001;
+        public static final int confirmBtn=0x7f060011;
+        public static final int customRulesCheckBox=0x7f06000d;
+        public static final int genCountLabel=0x7f060006;
+        public static final int genCountValue=0x7f060007;
+        public static final int gridview=0x7f060005;
+        public static final int intervalSettingEdit=0x7f06000c;
+        public static final int maxNeighsToLiveSettingEdit=0x7f060010;
+        public static final int miClear=0x7f060013;
+        public static final int miSettings=0x7f060014;
+        public static final int minNeighsToLiveSettingEdit=0x7f06000f;
+        public static final int neighsToAliveSettingEdit=0x7f06000e;
+        public static final int rootConfSaveView=0x7f060000;
+        public static final int rootSettingsView=0x7f06000b;
+        public static final int rootview=0x7f060004;
+        public static final int runBtn=0x7f060008;
+        public static final int stepBtn=0x7f060009;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
-        public static final int settings=0x7f030001;
+        public static final int conf_save=0x7f030000;
+        public static final int main=0x7f030001;
+        public static final int settings=0x7f030002;
     }
     public static final class menu {
         public static final int game_menu=0x7f050000;
@@ -46,6 +51,9 @@ public final class R {
     public static final class string {
         public static final int app_name=0x7f040001;
         public static final int clearBtnLabel=0x7f040006;
+        public static final int confCancelBtnLabel=0x7f040013;
+        public static final int confSaveBtnLabel=0x7f040012;
+        public static final int confSaveNameLabel=0x7f040011;
         public static final int customRulesCheckBoxLabel=0x7f040009;
         public static final int genCountLabel=0x7f040007;
         public static final int hello=0x7f040000;

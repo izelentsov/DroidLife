@@ -15,6 +15,9 @@
     <string name="maxNeighsToLiveSettingLabel">Макс. соседей для жизни</string>
     <string name="miClear">Очистить</string>
     <string name="miSettings">Настройки</string>
-<string name="settingsConfirmBtnLabel">Применить</string>
-<string name="settingsCancelBtnLabel">Отмена</string>
+    <string name="settingsConfirmBtnLabel">Применить</string>
+    <string name="settingsCancelBtnLabel">Отмена</string>
+    <string name="confSaveNameLabel">Введите имя для сохранения</string>
+    <string name="confSaveBtnLabel">Сохранить</string>
+    <string name="confCancelBtnLabel">Отмена</string>
 </resources>

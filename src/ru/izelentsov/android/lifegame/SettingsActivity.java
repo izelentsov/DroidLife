@@ -1,24 +1,29 @@
 package ru.izelentsov.android.lifegame;
 
+import ru.izelentsov.android.lifegame.logic.GameSettings;
 import ru.izelentsov.android.lifegame.view.SettingsView;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 
 
 public class SettingsActivity extends Activity {
 
-	private Bundle settingsBundle = null;
 	private SettingsView settingsView = null;
 	
 	
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate (savedInstanceState);
-		settingsBundle = new Bundle (getIntent ().getExtras ());
-		settingsView = new SettingsView (settingsBundle, this);
+		GameSettings settings = new GameSettings (this);
+		settingsView = new SettingsView (this);
 		settingsView.setListener (new ViewListener ());
+		
+		settingsView.setInterval (settings.getInterval ());
+		settingsView.setUseCustomRules (settings.getUseCustomRules ());
+		settingsView.setNToAlive (settings.getNToAlive ());
+		settingsView.setMinNToLive (settings.getMinNToLive ());
+		settingsView.setMaxNToLive (settings.getMaxNToLive ());
 	}
 	
 	
@@ -27,11 +32,14 @@ public class SettingsActivity extends Activity {
 
 		@Override
 		public void confirmRequested () {
-			settingsView.storeSettings (settingsBundle);
-	
-			Intent intent = new Intent();
-			intent.putExtras (settingsBundle);
-			setResult(RESULT_OK, intent);
+			GameSettings settings = new GameSettings (SettingsActivity.this);
+			settings.setInterval (settingsView.getInterval ());
+			settings.setUseCustomRules (settingsView.getUseCustomRules ());
+			settings.setNToAlive (settingsView.getNToAlive ());
+			settings.setMinNToLive (settingsView.getMinNToLive ());
+			settings.setMaxNToLive (settingsView.getMaxNToLive ());
+			
+			setResult(RESULT_OK);
 			finish ();
 		}
 
@@ -42,30 +50,5 @@ public class SettingsActivity extends Activity {
 		}
 		
 	}
-
-//
-//	@Override
-//	public void onBackPressed () {
-//		Intent intent = new Intent();
-//		intent.putExtras (settingsBundle);
-//		setResult(RESULT_OK, intent);
-//
-//		super.onBackPressed ();
-//	}
-//
-//
-//	@Override
-//	protected void onPause () {
-//		settingsView.storeSettings ();
-//		settingsBundle.putInt ("Optional", 1);
-//		Intent intent = new Intent();
-//		intent.putExtras (settingsBundle);
-//		intent.putExtra ("Optional2", 2);
-//		setResult(RESULT_OK, intent);
-//		super.onPause ();
-//	}
-
-
-	
 
 }

@@ -72,7 +72,7 @@ class Generation {
 	}
 	
 	
-	public int getNeighbours (int xPos, int yPos) {
+	int getNeighbours (int xPos, int yPos) {
 		int n = 0;
 		if (isAlive (xPos - 1, yPos - 1)) {
 			++n;

@@ -21,6 +21,11 @@ public class GameConf {
 		public int y () {
 			return y;
 		}
+		
+		void modify (int aNewX, int aNewY) {
+			x = aNewX;
+			y = aNewY;
+		}
 	}
 	
 	
@@ -88,6 +93,28 @@ public class GameConf {
 	
 	public int top () {
 		return isLeftTopSet () ? leftTopCell.y () : 0;
+	}
+	
+	
+	public void normalize () {
+		Iterator<Cell> i = cells.iterator ();
+		int minX = Integer.MAX_VALUE;
+		int minY = Integer.MAX_VALUE;
+		while (i.hasNext ()) {
+			Cell c = i.next ();
+			if (c.x () < minX) {
+				minX = c.x ();
+			}
+			if (c.y () < minY) {
+				minY = c.y ();
+			}
+		}
+		
+		i = cells.iterator ();
+		while (i.hasNext ()) {
+			Cell c = i.next ();
+			c.modify (c.x () - minX, c.y () - minY);
+		}
 	}
 	
 }
