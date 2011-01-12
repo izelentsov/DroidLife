@@ -8,7 +8,7 @@ import java.util.Iterator;
 public class GameConf {
 
 	
-	private class Cell {
+	public class Cell {
 		private int x = 0;
 		private int y = 0;
 		public Cell (int anX, int anY) {
@@ -115,6 +115,13 @@ public class GameConf {
 			Cell c = i.next ();
 			c.modify (c.x () - minX, c.y () - minY);
 		}
+		
+		setLeftTopCell (minX, minY);
+	}
+	
+
+	public Iterator<Cell> cellIterator () {
+		return cells.iterator ();
 	}
 	
 }

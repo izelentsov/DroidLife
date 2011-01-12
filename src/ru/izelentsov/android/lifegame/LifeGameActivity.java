@@ -123,8 +123,8 @@ public class LifeGameActivity extends Activity {
 
 	
 	private void sayConfSaved (String aSaveName) {
-		Toast.makeText (this, R.string.confSavedMsg + ": " + aSaveName, 
-				Toast.LENGTH_SHORT);
+		Toast.makeText (this, getResources ().getText (R.string.confSavedMsg) + 
+				": " + aSaveName, Toast.LENGTH_LONG).show ();
 	}
 
 

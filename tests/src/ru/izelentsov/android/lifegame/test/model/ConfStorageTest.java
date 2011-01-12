@@ -1,0 +1,111 @@
+package ru.izelentsov.android.lifegame.test.model;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import android.test.ActivityInstrumentationTestCase2;
+import ru.izelentsov.android.lifegame.ConfSaveActivity;
+import ru.izelentsov.android.lifegame.model.ConfStorage;
+import ru.izelentsov.android.lifegame.model.Game;
+import ru.izelentsov.android.lifegame.model.GameConf;
+import ru.izelentsov.android.lifegame.model.Rules;
+
+
+
+
+public class ConfStorageTest extends 
+	ActivityInstrumentationTestCase2<ConfSaveActivity> {
+
+	private ConfSaveActivity activity = null;
+	private ConfStorage storage = null;
+
+	
+	private final Rules DEFAULT_RULES = new Rules (3, 2, 3);
+	private static final String SAVE_NAME = "testSave";
+	private static final String SAVE_NAME2 = "testSave2";
+	
+	
+	public ConfStorageTest () {
+		super ("ru.izelentsov.android.lifegame", ConfSaveActivity.class);
+	}
+
+	@Override
+	protected void setUp () throws Exception {
+		super.setUp ();
+		activity = this.getActivity ();
+		storage = new ConfStorage ();
+	}
+	
+	
+	public void testSerializeConf () {
+		Game g = new Game (10, 10, DEFAULT_RULES);
+		g.setAlive (2, 2, true);
+		g.setAlive (2, 3, false);
+		g.setAlive (12, 4, true);
+		g.setAlive (18, 17, true);
+		
+		GameConf conf = g.getConf ();
+		
+		ConfStorage s = new ConfStorage ();
+		String str = s.serializeConfForTests (conf);
+		
+		assertEquals ("2,2;0,0;0,2;6,5;", str);
+	}
+	
+	
+	
+	public void testListStoredConfNames () {
+		
+		Game g = new Game (10, 10, DEFAULT_RULES);
+		g.setAlive (2, 2, true);
+		g.setAlive (2, 3, false);
+		g.setAlive (12, 4, true);
+		g.setAlive (18, 17, true);
+		
+		GameConf conf = g.getConf ();
+		
+		storeConf (conf, SAVE_NAME);
+		checkFilesCount (1);
+		
+		storeConf (conf, SAVE_NAME2);
+		checkFilesCount (2);
+		
+		storage.deleteConf (activity, SAVE_NAME);
+		checkFilesCount (1);
+		
+		storage.deleteConf (activity, SAVE_NAME + "blah");
+		checkFilesCount (1);
+		
+		storage.deleteConf (activity, SAVE_NAME2);
+		checkFilesCount (0);
+	}
+	
+	
+	
+	
+	private void storeConf (GameConf aConf, String aSaveName) {
+		try {
+			storage.storeConf (activity, aConf, aSaveName);
+		} catch (IOException e) {
+			e.printStackTrace();
+			assertFalse (e.getMessage (), true);
+		}
+	}
+	
+	
+	private void checkFilesCount (int aCount) {
+		ArrayList<String> list = storage.listStoredConfNames (activity);
+		assertEquals (aCount, list.size ());
+		
+		
+		Iterator<String> i = list.iterator ();
+		while (i.hasNext ()) {
+			String name = i.next ();
+			assertTrue ("Not a .sav file: " + name, 
+					name.endsWith (storage.fileExtForTests ()));
+		}
+	}
+	
+	
+}
