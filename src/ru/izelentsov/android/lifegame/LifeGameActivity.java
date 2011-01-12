@@ -25,6 +25,7 @@ public class LifeGameActivity extends Activity {
 	
 	
 	private static final int SETTINGS_ACTIVITY = 0;
+	private static final int CONF_SAVE_ACTIVITY = 1;
 		
 	
 	
@@ -58,6 +59,7 @@ public class LifeGameActivity extends Activity {
 		boolean gameIsRunning = gameController.isRunning ();
 		menu.getItem (0).setEnabled (!gameIsRunning);
 		menu.getItem (1).setEnabled (!gameIsRunning);
+		menu.getItem (2).setEnabled (!gameIsRunning);
 		return super.onPrepareOptionsMenu (menu);
 	}
     
@@ -71,6 +73,9 @@ public class LifeGameActivity extends Activity {
     	case R.id.miSettings:
     		startSettingsActivity ();
     		return true;
+    	case R.id.miSaveConf:
+    		startConfSaveActivity ();
+    		return true;
     	default:
     		return super.onOptionsItemSelected (item);
     	}
@@ -82,6 +87,12 @@ public class LifeGameActivity extends Activity {
     	startActivityForResult(i, SETTINGS_ACTIVITY);
     }
 
+    
+    private void startConfSaveActivity () {
+    	Intent i = new Intent (this, ConfSaveActivity.class);
+    	startActivityForResult (i, CONF_SAVE_ACTIVITY);
+    }
+    
 
 
 	@Override
@@ -96,6 +107,13 @@ public class LifeGameActivity extends Activity {
 				showSettings ();
 			}
 			break;
+			
+		case CONF_SAVE_ACTIVITY:
+			if (resultCode == RESULT_OK) {
+				sayConfSaved (
+						data.getStringExtra (ConfSaveActivity.SAVE_NAME_EXTRA));
+			}
+			break;
 		}
 	}
 
@@ -103,6 +121,11 @@ public class LifeGameActivity extends Activity {
 		Toast.makeText (this, settings.getSummary (), Toast.LENGTH_LONG).show ();
 	}
 
+	
+	private void sayConfSaved (String aSaveName) {
+		Toast.makeText (this, R.string.confSavedMsg + ": " + aSaveName, 
+				Toast.LENGTH_SHORT);
+	}
 
 
     

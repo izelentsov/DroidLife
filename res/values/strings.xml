@@ -2,7 +2,8 @@
 <resources>
     <string name="hello">Hello World, LifeGameActivity!</string>
     <string name="app_name">Life Game</string>
-    <string name="settings_act_name">Life Game</string>
+    <string name="settings_act_name">Life Game Settings</string>
+    <string name="conf_save_act_name">Life Game ConfSave</string>
     <string name="runBtnLabel">Пуск</string>
     <string name="stopBtnLabel">Стоп</string>
     <string name="stepBtnLabel">Шаг</string>
@@ -15,9 +16,13 @@
     <string name="maxNeighsToLiveSettingLabel">Макс. соседей для жизни</string>
     <string name="miClear">Очистить</string>
     <string name="miSettings">Настройки</string>
+    <string name="miSaveConf">Сохранить</string>
     <string name="settingsConfirmBtnLabel">Применить</string>
     <string name="settingsCancelBtnLabel">Отмена</string>
     <string name="confSaveNameLabel">Введите имя для сохранения</string>
     <string name="confSaveBtnLabel">Сохранить</string>
     <string name="confCancelBtnLabel">Отмена</string>
+    
+    
+    <string name="confSavedMsg">Игра сохранена</string>
 </resources>

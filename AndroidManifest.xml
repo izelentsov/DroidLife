@@ -17,6 +17,9 @@
         <activity android:name=".SettingsActivity" 
             android:label="@string/settings_act_name">
         </activity>
+        <activity android:name=".ConfSaveActivity" 
+            android:label="@string/conf_save_act_name">
+        </activity>
 </application>
 
 

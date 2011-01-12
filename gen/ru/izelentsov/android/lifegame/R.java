@@ -15,7 +15,8 @@ public final class R {
         public static final int cell_blank=0x7f020001;
         public static final int icon=0x7f020002;
         public static final int mi_clear=0x7f020003;
-        public static final int mi_settings=0x7f020004;
+        public static final int mi_save=0x7f020004;
+        public static final int mi_settings=0x7f020005;
     }
     public static final class id {
         public static final int cancelBtn=0x7f060012;
@@ -31,6 +32,7 @@ public final class R {
         public static final int intervalSettingEdit=0x7f06000c;
         public static final int maxNeighsToLiveSettingEdit=0x7f060010;
         public static final int miClear=0x7f060013;
+        public static final int miSaveConf=0x7f060015;
         public static final int miSettings=0x7f060014;
         public static final int minNeighsToLiveSettingEdit=0x7f06000f;
         public static final int neighsToAliveSettingEdit=0x7f06000e;
@@ -50,24 +52,27 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040001;
-        public static final int clearBtnLabel=0x7f040006;
-        public static final int confCancelBtnLabel=0x7f040013;
-        public static final int confSaveBtnLabel=0x7f040012;
-        public static final int confSaveNameLabel=0x7f040011;
-        public static final int customRulesCheckBoxLabel=0x7f040009;
-        public static final int genCountLabel=0x7f040007;
+        public static final int clearBtnLabel=0x7f040007;
+        public static final int confCancelBtnLabel=0x7f040015;
+        public static final int confSaveBtnLabel=0x7f040014;
+        public static final int confSaveNameLabel=0x7f040013;
+        public static final int confSavedMsg=0x7f040016;
+        public static final int conf_save_act_name=0x7f040003;
+        public static final int customRulesCheckBoxLabel=0x7f04000a;
+        public static final int genCountLabel=0x7f040008;
         public static final int hello=0x7f040000;
-        public static final int intervalSettingLabel=0x7f040008;
-        public static final int maxNeighsToLiveSettingLabel=0x7f04000c;
-        public static final int miClear=0x7f04000d;
-        public static final int miSettings=0x7f04000e;
-        public static final int minNeighsToLiveSettingLabel=0x7f04000b;
-        public static final int neighsToAliveSettingLabel=0x7f04000a;
-        public static final int runBtnLabel=0x7f040003;
-        public static final int settingsCancelBtnLabel=0x7f040010;
-        public static final int settingsConfirmBtnLabel=0x7f04000f;
+        public static final int intervalSettingLabel=0x7f040009;
+        public static final int maxNeighsToLiveSettingLabel=0x7f04000d;
+        public static final int miClear=0x7f04000e;
+        public static final int miSaveConf=0x7f040010;
+        public static final int miSettings=0x7f04000f;
+        public static final int minNeighsToLiveSettingLabel=0x7f04000c;
+        public static final int neighsToAliveSettingLabel=0x7f04000b;
+        public static final int runBtnLabel=0x7f040004;
+        public static final int settingsCancelBtnLabel=0x7f040012;
+        public static final int settingsConfirmBtnLabel=0x7f040011;
         public static final int settings_act_name=0x7f040002;
-        public static final int stepBtnLabel=0x7f040005;
-        public static final int stopBtnLabel=0x7f040004;
+        public static final int stepBtnLabel=0x7f040006;
+        public static final int stopBtnLabel=0x7f040005;
     }
 }
