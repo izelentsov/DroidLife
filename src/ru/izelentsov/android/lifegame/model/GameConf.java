@@ -26,6 +26,17 @@ public class GameConf {
 			x = aNewX;
 			y = aNewY;
 		}
+		
+		@Override
+		public boolean equals (Object o) {
+			if (!(o instanceof Cell)) {
+				return false;
+			}
+			Cell c = (Cell) o;
+			return (x == c.x) && (y == c.y);
+		}
+
+		
 	}
 	
 	
@@ -122,6 +133,40 @@ public class GameConf {
 
 	public Iterator<Cell> cellIterator () {
 		return cells.iterator ();
+	}
+	
+	
+	@Override
+	public boolean equals (Object anObject) {
+		if (!(anObject instanceof GameConf)) {
+			return false;
+		}
+		
+		GameConf anotherConf = (GameConf) anObject;
+		
+		if ((left() != anotherConf.left ()) || (top () != anotherConf.top ())) {
+			return false;
+		}
+		
+		Iterator<Cell> myI = cellIterator ();
+		Iterator<Cell> hisI = anotherConf.cellIterator ();
+		
+		while (myI.hasNext ()) {
+			if (!hisI.hasNext ()) {
+				return false;
+			}
+			Cell myCell = myI.next ();
+			Cell hisCell = hisI.next ();
+			if (!myCell.equals (hisCell)) {
+				return false;
+			}
+		}
+		
+		if (hisI.hasNext ()) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 }

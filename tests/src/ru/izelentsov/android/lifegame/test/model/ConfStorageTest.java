@@ -35,6 +35,7 @@ public class ConfStorageTest extends
 		super.setUp ();
 		activity = this.getActivity ();
 		storage = new ConfStorage ();
+		storage.cleanStorage (activity);
 	}
 	
 	
@@ -67,15 +68,20 @@ public class ConfStorageTest extends
 		
 		storeConf (conf, SAVE_NAME);
 		checkFilesCount (1);
+		checkRead (SAVE_NAME, conf);
 		
 		storeConf (conf, SAVE_NAME2);
 		checkFilesCount (2);
+		checkRead (SAVE_NAME, conf);
+		checkRead (SAVE_NAME2, conf);
 		
 		storage.deleteConf (activity, SAVE_NAME);
 		checkFilesCount (1);
+		checkRead (SAVE_NAME, conf);
 		
 		storage.deleteConf (activity, SAVE_NAME + "blah");
 		checkFilesCount (1);
+		checkRead (SAVE_NAME, conf);
 		
 		storage.deleteConf (activity, SAVE_NAME2);
 		checkFilesCount (0);
@@ -105,6 +111,20 @@ public class ConfStorageTest extends
 			assertTrue ("Not a .sav file: " + name, 
 					name.endsWith (storage.fileExtForTests ()));
 		}
+	}
+	
+	
+	private void checkRead (String aReadName, GameConf aCheckConf) {
+		GameConf readConf = null;
+		try {
+			readConf = storage.readConf (activity, SAVE_NAME);
+		} catch (IOException e) {
+			e.printStackTrace();
+			assertTrue (e.getMessage (), false);
+			return;
+		}
+		
+		assertTrue ("Read config does not match", readConf.equals (aCheckConf));
 	}
 	
 	

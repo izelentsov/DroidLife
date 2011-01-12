@@ -83,6 +83,16 @@ public class ConfStorage {
 	}
 	
 	
+	public void cleanStorage (Context aContext) {
+		ArrayList<String> names = listStoredConfNames (aContext);
+		for (String name : names) {
+			deleteConf (aContext, name);
+		}
+	}
+	
+	
+	
+	
 	
 	private String serializeConf (GameConf aConf) {
 		aConf.normalize ();
