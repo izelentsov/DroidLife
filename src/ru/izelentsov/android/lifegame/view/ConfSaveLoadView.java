@@ -1,5 +1,7 @@
 package ru.izelentsov.android.lifegame.view;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,12 +12,15 @@ import ru.izelentsov.android.lifegame.R;
 
 
 
-public class ConfSaveView {
+public class ConfSaveLoadView {
 
 	
 	public interface IListener {
-		public void saveRequested (String aSaveName);
+		public void saveRequested 	(String aSaveName);
+		public void loadRequested 	(String aSaveName);
+		public void deleteRequested 	(String aSaveName);
 		public void cancelRequested ();
+		public String confNameChoiceRequested ();
 	}
 
 	private class VoidListener implements IListener {
@@ -25,19 +30,32 @@ public class ConfSaveView {
 		@Override
 		public void cancelRequested () {
 		}
+		@Override
+		public void loadRequested (String aSaveName) {
+		}
+		@Override
+		public void deleteRequested (String aSaveName) {
+		}
+		@Override
+		public String confNameChoiceRequested () {
+			return null;
+		}
 	}
 	
 	
 	private IListener listener = null;
 	private EditText confNameEdit = null;
 	private Button saveButton = null;
+	private Button loadButton = null;
+	private Button deleteButton = null;
 	private Button cancelButton = null;
+	private Button chooseButton = null;
 	
 	
 	
-	public ConfSaveView (Activity anActivity) {
+	public ConfSaveLoadView (Activity anActivity) {
 		listener = new VoidListener ();
-		anActivity.setContentView (R.layout.conf_save);
+		anActivity.setContentView (R.layout.conf_save_load);
 		setupControls (anActivity);
 	}
 
@@ -60,6 +78,22 @@ public class ConfSaveView {
 				listener.saveRequested (confNameEdit.getText ().toString ());
 			}
 		});
+
+		loadButton = (Button) anActivity.findViewById (R.id.confLoadBtn);
+		loadButton.setOnClickListener (new OnClickListener () {
+			@Override
+			public void onClick (View v) {
+				listener.loadRequested (confNameEdit.getText ().toString ());
+			}
+		});
+
+		deleteButton = (Button) anActivity.findViewById (R.id.confDeleteBtn);
+		deleteButton.setOnClickListener (new OnClickListener () {
+			@Override
+			public void onClick (View v) {
+				listener.deleteRequested (confNameEdit.getText ().toString ());
+			}
+		});
 		
 		cancelButton = (Button) anActivity.findViewById (R.id.confCancelBtn);
 		cancelButton.setOnClickListener (new OnClickListener () {
@@ -68,8 +102,25 @@ public class ConfSaveView {
 				listener.cancelRequested ();
 			}
 		});
+		
+		
+		chooseButton = (Button) anActivity.findViewById (R.id.confChooseBtn);
+		chooseButton.setOnClickListener (new OnClickListener () {
+			@Override
+			public void onClick (View v) {
+				listener.confNameChoiceRequested ();
+			}
+		});
 	}
 
+	
+	
+	public void setConfName (String aConfName) {
+		if (aConfName != null) {
+			confNameEdit.setText (aConfName);
+		}
+	}
+	
 	
 	
 	

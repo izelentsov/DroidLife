@@ -19,10 +19,14 @@
     <string name="miSaveConf">Сохранить</string>
     <string name="settingsConfirmBtnLabel">Применить</string>
     <string name="settingsCancelBtnLabel">Отмена</string>
-    <string name="confSaveNameLabel">Введите имя для сохранения</string>
+    <string name="confSaveLoadNameLabel">Введите имя конфигурации</string>
+    <string name="confChooseBtnLabel">...</string>
     <string name="confSaveBtnLabel">Сохранить</string>
+    <string name="confLoadBtnLabel">Загрузить</string>
+    <string name="confDeleteBtnLabel">Удалить</string>
     <string name="confCancelBtnLabel">Отмена</string>
     
     
-    <string name="confSavedMsg">Игра сохранена</string>
+    <string name="confSavedMsg">Конфигурация сохранена</string>
+    <string name="confDeletedMsg">Конфигурация удалена</string>
 </resources>

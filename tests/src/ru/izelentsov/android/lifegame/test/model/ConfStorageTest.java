@@ -2,10 +2,9 @@ package ru.izelentsov.android.lifegame.test.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.test.ActivityInstrumentationTestCase2;
-import ru.izelentsov.android.lifegame.ConfSaveActivity;
+import ru.izelentsov.android.lifegame.ConfSaveLoadActivity;
 import ru.izelentsov.android.lifegame.model.ConfStorage;
 import ru.izelentsov.android.lifegame.model.Game;
 import ru.izelentsov.android.lifegame.model.GameConf;
@@ -15,19 +14,19 @@ import ru.izelentsov.android.lifegame.model.Rules;
 
 
 public class ConfStorageTest extends 
-	ActivityInstrumentationTestCase2<ConfSaveActivity> {
+	ActivityInstrumentationTestCase2<ConfSaveLoadActivity> {
 
-	private ConfSaveActivity activity = null;
+	private ConfSaveLoadActivity activity = null;
 	private ConfStorage storage = null;
 
 	
-	private final Rules DEFAULT_RULES = new Rules (3, 2, 3);
+	private static final Rules DEFAULT_RULES = new Rules (3, 2, 3);
 	private static final String SAVE_NAME = "testSave";
 	private static final String SAVE_NAME2 = "testSave2";
 	
 	
 	public ConfStorageTest () {
-		super ("ru.izelentsov.android.lifegame", ConfSaveActivity.class);
+		super ("ru.izelentsov.android.lifegame", ConfSaveLoadActivity.class);
 	}
 
 	@Override
@@ -37,6 +36,8 @@ public class ConfStorageTest extends
 		storage = new ConfStorage ();
 		storage.cleanStorage (activity);
 	}
+	
+	
 	
 	
 	public void testSerializeConf () {
@@ -58,13 +59,7 @@ public class ConfStorageTest extends
 	
 	public void testListStoredConfNames () {
 		
-		Game g = new Game (10, 10, DEFAULT_RULES);
-		g.setAlive (2, 2, true);
-		g.setAlive (2, 3, false);
-		g.setAlive (12, 4, true);
-		g.setAlive (18, 17, true);
-		
-		GameConf conf = g.getConf ();
+		GameConf conf = createTestConf ();
 		
 		storeConf (conf, SAVE_NAME);
 		checkFilesCount (1);
@@ -77,13 +72,26 @@ public class ConfStorageTest extends
 		
 		storage.deleteConf (activity, SAVE_NAME);
 		checkFilesCount (1);
-		checkRead (SAVE_NAME, conf);
+		checkRead (SAVE_NAME2, conf);
 		
 		storage.deleteConf (activity, SAVE_NAME + "blah");
 		checkFilesCount (1);
-		checkRead (SAVE_NAME, conf);
+		checkRead (SAVE_NAME2, conf);
 		
 		storage.deleteConf (activity, SAVE_NAME2);
+		checkFilesCount (0);
+	}
+	
+	
+	public void testCleanStorage () {
+		GameConf conf = createTestConf ();
+
+		checkFilesCount (0);
+		storeConf (conf, SAVE_NAME);
+		checkFilesCount (1);
+		storeConf (conf, SAVE_NAME2);
+		checkFilesCount (2);
+		storage.cleanStorage (activity);
 		checkFilesCount (0);
 	}
 	
@@ -104,20 +112,20 @@ public class ConfStorageTest extends
 		ArrayList<String> list = storage.listStoredConfNames (activity);
 		assertEquals (aCount, list.size ());
 		
-		
-		Iterator<String> i = list.iterator ();
-		while (i.hasNext ()) {
-			String name = i.next ();
-			assertTrue ("Not a .sav file: " + name, 
-					name.endsWith (storage.fileExtForTests ()));
-		}
+//		
+//		Iterator<String> i = list.iterator ();
+//		while (i.hasNext ()) {
+//			String name = i.next ();
+//			assertTrue ("Not a .sav file: " + name, 
+//					name.endsWith (storage.fileExtForTests ()));
+//		}
 	}
 	
 	
 	private void checkRead (String aReadName, GameConf aCheckConf) {
 		GameConf readConf = null;
 		try {
-			readConf = storage.readConf (activity, SAVE_NAME);
+			readConf = storage.readConf (activity, aReadName);
 		} catch (IOException e) {
 			e.printStackTrace();
 			assertTrue (e.getMessage (), false);
@@ -126,6 +134,17 @@ public class ConfStorageTest extends
 		
 		assertTrue ("Read config does not match", readConf.equals (aCheckConf));
 	}
+
 	
+	
+	private static GameConf createTestConf () {
+		Game g = new Game (10, 10, DEFAULT_RULES);
+		g.setAlive (2, 2, true);
+		g.setAlive (2, 3, false);
+		g.setAlive (12, 4, true);
+		g.setAlive (18, 17, true);
+		
+		return g.getConf ();		
+	}
 	
 }

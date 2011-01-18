@@ -30,8 +30,10 @@ public class ConfStorage {
 		ArrayList<String> ret = new ArrayList<String> ();
 
 		for (int i = 0; i < list.length; ++i) {
-			if (list[i].getName ().endsWith (SAVE_FILE_EXT)) {
-				ret.add (list[i].getName ());
+			String fileName = list[i].getName ();
+			if (fileName.endsWith (SAVE_FILE_EXT)) {
+				ret.add (fileName.substring (
+						0, fileName.length () - SAVE_FILE_EXT.length ()));
 			}
 		}
 		return ret;
@@ -155,8 +157,5 @@ public class ConfStorage {
 		return serializeConf (aConf);
 	}
 	
-	public String fileExtForTests () {
-		return SAVE_FILE_EXT;
-	}
 	
 }

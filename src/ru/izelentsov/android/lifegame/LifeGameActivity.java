@@ -89,7 +89,7 @@ public class LifeGameActivity extends Activity {
 
     
     private void startConfSaveActivity () {
-    	Intent i = new Intent (this, ConfSaveActivity.class);
+    	Intent i = new Intent (this, ConfSaveLoadActivity.class);
     	startActivityForResult (i, CONF_SAVE_ACTIVITY);
     }
     
@@ -111,7 +111,7 @@ public class LifeGameActivity extends Activity {
 		case CONF_SAVE_ACTIVITY:
 			if (resultCode == RESULT_OK) {
 				sayConfSaved (
-						data.getStringExtra (ConfSaveActivity.SAVE_NAME_EXTRA));
+						data.getStringExtra (ConfSaveLoadActivity.NAME_EXTRA));
 			}
 			break;
 		}

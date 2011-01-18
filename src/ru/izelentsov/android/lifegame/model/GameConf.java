@@ -1,11 +1,12 @@
 package ru.izelentsov.android.lifegame.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
 
-public class GameConf {
+public class GameConf implements Serializable {
 
 	
 	public class Cell {
@@ -127,7 +128,9 @@ public class GameConf {
 			c.modify (c.x () - minX, c.y () - minY);
 		}
 		
-		setLeftTopCell (minX, minY);
+		if ((minX > 0) && (minY > 0)) {
+			setLeftTopCell (minX, minY);
+		}
 	}
 	
 
