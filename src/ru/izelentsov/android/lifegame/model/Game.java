@@ -73,6 +73,7 @@ public class Game {
 	public void setConf (GameConf aConf) {
 		currentGen = new Generation (currentGen.width (), currentGen.height ());
 		aConf.applyTo (currentGen);
+		resetGenerationNumber ();
 		listener.generationChanged ();
 	}
 	

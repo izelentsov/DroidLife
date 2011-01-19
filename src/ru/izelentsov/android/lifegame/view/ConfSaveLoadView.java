@@ -1,7 +1,5 @@
 package ru.izelentsov.android.lifegame.view;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,11 +14,11 @@ public class ConfSaveLoadView {
 
 	
 	public interface IListener {
-		public void saveRequested 	(String aSaveName);
-		public void loadRequested 	(String aSaveName);
-		public void deleteRequested 	(String aSaveName);
-		public void cancelRequested ();
-		public String confNameChoiceRequested ();
+		public void saveRequested 			(String aSaveName);
+		public void loadRequested 			(String aSaveName);
+		public void deleteRequested 		(String aSaveName);
+		public void cancelRequested 		();
+		public void confNameChoiceRequested ();
 	}
 
 	private class VoidListener implements IListener {
@@ -37,8 +35,7 @@ public class ConfSaveLoadView {
 		public void deleteRequested (String aSaveName) {
 		}
 		@Override
-		public String confNameChoiceRequested () {
-			return null;
+		public void confNameChoiceRequested () {
 		}
 	}
 	
@@ -104,6 +101,7 @@ public class ConfSaveLoadView {
 		});
 		
 		
+		// TODO hide/show choose button depending on saves number
 		chooseButton = (Button) anActivity.findViewById (R.id.confChooseBtn);
 		chooseButton.setOnClickListener (new OnClickListener () {
 			@Override
@@ -121,6 +119,14 @@ public class ConfSaveLoadView {
 		}
 	}
 	
+	public void clearConfName () {
+		confNameEdit.setText ("");
+	}
+
+
+	public void setChoiceEnabled (boolean anEnabledFlag) {
+		chooseButton.setEnabled (anEnabledFlag);
+	}
 	
 	
 	

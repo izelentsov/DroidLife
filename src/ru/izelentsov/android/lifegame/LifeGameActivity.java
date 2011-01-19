@@ -1,7 +1,11 @@
 package ru.izelentsov.android.lifegame;
 
+import java.io.IOException;
+
 import ru.izelentsov.android.lifegame.logic.GameController;
 import ru.izelentsov.android.lifegame.logic.GameSettings;
+import ru.izelentsov.android.lifegame.model.ConfStorage;
+import ru.izelentsov.android.lifegame.model.GameConf;
 import ru.izelentsov.android.lifegame.view.GameView;
 import android.app.Activity;
 import android.content.Intent;
@@ -110,8 +114,12 @@ public class LifeGameActivity extends Activity {
 			
 		case CONF_SAVE_ACTIVITY:
 			if (resultCode == RESULT_OK) {
-				sayConfSaved (
-						data.getStringExtra (ConfSaveLoadActivity.NAME_EXTRA));
+				int action = data.getIntExtra (ConfSaveLoadActivity.ACTION_EXTRA, -1);
+				if (action == ConfSaveLoadActivity.Actions.SAVE.code ()) {
+					saveConf (data.getStringExtra (ConfSaveLoadActivity.NAME_EXTRA));
+				} else if (action == ConfSaveLoadActivity.Actions.LOAD.code ()) {
+					loadConf (data.getStringExtra (ConfSaveLoadActivity.NAME_EXTRA));
+				}
 			}
 			break;
 		}
@@ -122,11 +130,47 @@ public class LifeGameActivity extends Activity {
 	}
 
 	
-	private void sayConfSaved (String aSaveName) {
+	private void saveConf (String aSaveName) {
+		GameConf curConf = gameController.game ().getConf ();
+		ConfStorage storage = new ConfStorage ();
+		try {
+			storage.storeConf (this, curConf, aSaveName);
+		} catch (IOException e) {
+			e.printStackTrace();
+			Toast.makeText (this, 
+					getResources ().getText (R.string.confSaveErrorMsg) + 
+					" " + aSaveName + ": " + e.getMessage (), 
+					Toast.LENGTH_LONG).show ();
+			return;
+		}
 		Toast.makeText (this, getResources ().getText (R.string.confSavedMsg) + 
 				": " + aSaveName, Toast.LENGTH_LONG).show ();
 	}
+	
+	
+	private void loadConf (String aLoadName) {
+		ConfStorage storage = new ConfStorage ();
+		GameConf conf = null;
+		
+		
+		try {
+			conf = storage.readConf (this, aLoadName);
+		} catch (IOException e) {
+			e.printStackTrace();
+			Toast.makeText (this, 
+					getResources ().getText (R.string.confLoadErrorMsg) + 
+					" " + aLoadName + ": " + e.getMessage (), 
+					Toast.LENGTH_LONG).show ();
+			return;
+		}
 
-
+		gameController.game ().setConf (conf);
+		
+		Toast.makeText (this, getResources ().getText (R.string.confLoadedMsg) + 
+				": " + aLoadName, Toast.LENGTH_LONG).show ();
+		
+	}
+	
+	
     
 }

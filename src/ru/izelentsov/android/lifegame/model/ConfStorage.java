@@ -40,6 +40,11 @@ public class ConfStorage {
 	}
 
 	
+	public boolean confExists (Context aContext, String aConfName) {
+		return listStoredConfNames (aContext).contains (aConfName);
+	}
+	
+	
 	public GameConf readConf (Context aContext, String aConfName) 
 	throws IOException {
 		BufferedReader in = new BufferedReader (new FileReader (

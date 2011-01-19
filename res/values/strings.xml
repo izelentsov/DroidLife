@@ -25,8 +25,18 @@
     <string name="confLoadBtnLabel">Загрузить</string>
     <string name="confDeleteBtnLabel">Удалить</string>
     <string name="confCancelBtnLabel">Отмена</string>
+    <string name="confNameChoiceDialogTitle">Выберите имя конфигурации</string>
+    <string name="confRewriteAcceptLabel">Да</string>
+    <string name="confRewriteRejectLabel">Отмена</string>
+    <string name="confDeleteAcceptLabel">Да</string>
+    <string name="confDeleteRejectLabel">Отмена</string>
     
     
     <string name="confSavedMsg">Конфигурация сохранена</string>
+    <string name="confSaveErrorMsg">Ошибка сохранения</string>
+    <string name="confLoadedMsg">Конфигурация загружена</string>
+    <string name="confLoadErrorMsg">Ошибка загрузки</string>
     <string name="confDeletedMsg">Конфигурация удалена</string>
+    <string name="confRewriteMsg">Перезаписать существующую конфигурацию?</string>
+    <string name="confDeleteMsg">Подтвердите удаление конфигурации</string>
 </resources>
