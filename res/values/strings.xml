@@ -30,6 +30,7 @@
     <string name="confRewriteRejectLabel">Отмена</string>
     <string name="confDeleteAcceptLabel">Да</string>
     <string name="confDeleteRejectLabel">Отмена</string>
+    <string name="confNoConfOKLabel">OK</string>
     
     
     <string name="confSavedMsg">Конфигурация сохранена</string>
@@ -39,4 +40,5 @@
     <string name="confDeletedMsg">Конфигурация удалена</string>
     <string name="confRewriteMsg">Перезаписать существующую конфигурацию?</string>
     <string name="confDeleteMsg">Подтвердите удаление конфигурации</string>
+    <string name="confNoConfMsg">Выбраной конфигурации не существует</string>
 </resources>

@@ -1,10 +1,13 @@
 package ru.izelentsov.android.lifegame.view;
 
 import android.app.Activity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import ru.izelentsov.android.lifegame.R;
 
 
@@ -65,8 +68,7 @@ public class ConfSaveLoadView {
 
 	private void setupControls (Activity anActivity) {
 		confNameEdit = (EditText) anActivity.findViewById (R.id.confSaveEdit);
-		// TODO
-//		confNameEdit.setOnEditorActionListener (new NameEditListener ());
+		confNameEdit.setOnEditorActionListener (new NameEditListener ());
 		
 		saveButton = (Button) anActivity.findViewById (R.id.confSaveBtn);
 		saveButton.setOnClickListener (new OnClickListener () {
@@ -101,7 +103,6 @@ public class ConfSaveLoadView {
 		});
 		
 		
-		// TODO hide/show choose button depending on saves number
 		chooseButton = (Button) anActivity.findViewById (R.id.confChooseBtn);
 		chooseButton.setOnClickListener (new OnClickListener () {
 			@Override
@@ -122,6 +123,14 @@ public class ConfSaveLoadView {
 	public void clearConfName () {
 		confNameEdit.setText ("");
 	}
+	
+	
+	public void enableActions () {
+		boolean hasText = confNameEdit.getText ().length () > 0;
+		saveButton.setEnabled (hasText);
+		loadButton.setEnabled (hasText);
+		deleteButton.setEnabled (hasText);
+	}
 
 
 	public void setChoiceEnabled (boolean anEnabledFlag) {
@@ -130,15 +139,14 @@ public class ConfSaveLoadView {
 	
 	
 	
-	// TODO
-//	private class NameEditListener implements OnEditorActionListener {
-//
-//		@Override
-//		public boolean onEditorAction (TextView aView, int arg1, KeyEvent arg2) {
-//			// TODO Auto-generated method stub
-//			return false;
-//		}
-//		
-//	}
+	private class NameEditListener implements OnEditorActionListener {
+
+		@Override
+		public boolean onEditorAction (TextView aView, int arg1, KeyEvent arg2) {
+			enableActions ();
+			return false;
+		}
+		
+	}
 	
 }

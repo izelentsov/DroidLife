@@ -25,6 +25,7 @@ public class ConfSaveLoadActivity extends Activity {
 	private static final int NAME_CHOICE_DIALOG_ID = 0;
 	private static final int REWRITE_CONFIRM_DIALOG_ID = 1;
 	private static final int DELETE_CONFIRM_DIALOG_ID = 2;
+	private static final int NO_CONF_DIALOG_ID = 3;
 	
 	private ConfSaveLoadView view = null;
 	private ConfStorage storage = null;
@@ -62,6 +63,7 @@ public class ConfSaveLoadActivity extends Activity {
 	protected void onStart () {
 		super.onStart ();
 		setChoiceEnabled ();
+		view.enableActions ();
 	}
 
 	
@@ -78,6 +80,9 @@ public class ConfSaveLoadActivity extends Activity {
 			break;
 		case DELETE_CONFIRM_DIALOG_ID:
 			dialog = createDeleteConfirmDialog ();
+			break;
+		case NO_CONF_DIALOG_ID:
+			dialog = createNoConfDialog ();
 			break;
 		default:
 			break;
@@ -141,6 +146,19 @@ public class ConfSaveLoadActivity extends Activity {
 	}	
 
 	
+	private AlertDialog createNoConfDialog () {
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder (this);
+		dialogBuilder.setMessage (R.string.confNoConfMsg)
+			.setPositiveButton (R.string.confNoConfOKLabel, 
+					new OnClickListener() {
+						@Override
+						public void onClick (DialogInterface dialog, int which) {
+							dialog.dismiss ();
+						}
+				});
+		return dialogBuilder.create ();
+	}
+	
 	
 	private void setChoiceEnabled () {
 		view.setChoiceEnabled (storage.listStoredConfNames (this).size () > 0);
@@ -152,6 +170,15 @@ public class ConfSaveLoadActivity extends Activity {
 		Intent i = new Intent ();
 		i.putExtra (NAME_EXTRA, aSaveName);
 		i.putExtra (ACTION_EXTRA, Actions.SAVE.code ());
+		setResult(RESULT_OK, i);
+		finish ();
+	}
+	
+	
+	private void load (String aLoadName) {
+		Intent i = new Intent ();
+		i.putExtra (NAME_EXTRA, aLoadName);
+		i.putExtra (ACTION_EXTRA, Actions.LOAD.code ());
 		setResult(RESULT_OK, i);
 		finish ();
 	}
@@ -200,12 +227,11 @@ public class ConfSaveLoadActivity extends Activity {
 
 		@Override
 		public void loadRequested (String aSaveName) {
-			// TODO check conf existance
-			Intent i = new Intent ();
-			i.putExtra (NAME_EXTRA, aSaveName);
-			i.putExtra (ACTION_EXTRA, Actions.LOAD.code ());
-			setResult(RESULT_OK, i);
-			finish ();
+			if (saveExists (aSaveName)) {
+				load (aSaveName);
+			} else {
+				showDialog (NO_CONF_DIALOG_ID);
+			}
 		}
 		
 		@Override
