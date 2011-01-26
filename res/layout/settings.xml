@@ -1,197 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rootSettingsView"
-    android:orientation="vertical" 
-    android:layout_width="match_parent"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" 
     android:layout_height="match_parent"
-    >
-    
-    
-    <RelativeLayout
+    android:layout_weight="1"
+    android:background="#00000000"
+    >        
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rootSettingsView"
+        android:orientation="vertical" 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5px"
+        android:layout_height="match_parent"
         >
-        <EditText
-            android:id="@+id/intervalSettingEdit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:maxHeight="30dp"
-            android:layout_alignParentRight="true"
-            android:textSize="20dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignBaseline="@id/intervalSettingEdit"
-            android:text="@string/intervalSettingLabel"
-            android:textSize="20dp"
-            />
-        
-    </RelativeLayout>
     
     
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#60FFFFFF"
-        android:padding="0px"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5px"
+            >
+            <EditText
+                android:id="@+id/intervalSettingEdit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="30dp"
+                android:layout_alignParentRight="true"
+                android:textSize="20dp"
+                android:inputType="number"
+            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignBaseline="@id/intervalSettingEdit"
+                android:text="@string/intervalSettingLabel"
+                android:textSize="20dp"
+             />
+        </RelativeLayout>
+    
+    
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#60FFFFFF"
+            android:padding="0px"
         />
     
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5px"
-        >
-        <CheckBox
-            android:id="@+id/customRulesCheckBox"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical|left"
+            android:padding="5px"
+            >
+            <CheckBox
+                android:id="@+id/customRulesCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical|left"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/customRulesCheckBoxLabel"
-            android:textSize="20dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/customRulesCheckBoxLabel"
+                android:textSize="20dp"
             />
-        
-    </RelativeLayout>
+        </RelativeLayout>
     
     
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#60FFFFFF"
-        android:padding="0px"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#60FFFFFF"
+            android:padding="0px"
         />    
     
     
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5px"
-        >
-        <EditText
-            android:id="@+id/neighsToAliveSettingEdit"
-            android:layout_width="100dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:enabled="false"
+            android:padding="5px"
+            >
+            <EditText
+                android:id="@+id/neighsToAliveSettingEdit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:enabled="false"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignBaseline="@id/neighsToAliveSettingEdit"
-            android:text="@string/neighsToAliveSettingLabel"
-            android:textSize="16dp"
-            android:enabled="false"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignBaseline="@id/neighsToAliveSettingEdit"
+                android:text="@string/neighsToAliveSettingLabel"
+                android:textSize="16dp"
+                android:enabled="false"
             />
-        
-    </RelativeLayout>
+        </RelativeLayout>
     
     
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#60FFFFFF"
-        android:padding="0px"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#60FFFFFF"
+            android:padding="0px"
         />    
         
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5px"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5px"
         >
-        <EditText
-            android:id="@+id/minNeighsToLiveSettingEdit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:enabled="false"
+            <EditText
+                android:id="@+id/minNeighsToLiveSettingEdit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:enabled="false"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignBaseline="@id/minNeighsToLiveSettingEdit"
-            android:text="@string/minNeighsToLiveSettingLabel"
-            android:textSize="16dp"
-            android:enabled="false"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignBaseline="@id/minNeighsToLiveSettingEdit"
+                android:text="@string/minNeighsToLiveSettingLabel"
+                android:textSize="16dp"
+                android:enabled="false"
             />
-        
-    </RelativeLayout>
+        </RelativeLayout>
     
     
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#60FFFFFF"
-        android:padding="0px"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#60FFFFFF"
+            android:padding="0px"
         /> 
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5px"
-        >
-        <EditText
-            android:id="@+id/maxNeighsToLiveSettingEdit"
-            android:layout_width="100dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:enabled="false"
+            android:padding="5px"
+            >
+            <EditText
+                android:id="@+id/maxNeighsToLiveSettingEdit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:enabled="false"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignBaseline="@id/maxNeighsToLiveSettingEdit"
-            android:text="@string/maxNeighsToLiveSettingLabel"
-            android:textSize="16dp"
-            android:enabled="false"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignBaseline="@id/maxNeighsToLiveSettingEdit"
+                android:text="@string/maxNeighsToLiveSettingLabel"
+                android:textSize="16dp"
+                android:enabled="false"
             />
-        
-    </RelativeLayout>
+        </RelativeLayout>
     
     
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#60FFFFFF"
-        android:padding="0px"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#60FFFFFF"
+            android:padding="0px"
         />
-        
      
-     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"  
-        android:gravity="center_horizontal|bottom"
-        >  
-        <Button
-            android:id="@+id/confirmBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settingsConfirmBtnLabel"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"  
+            android:gravity="center_horizontal|bottom"
+            >  
+            <Button
+                android:id="@+id/confirmBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/settingsConfirmBtnLabel"
             />
-        <Button
-            android:id="@+id/cancelBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settingsCancelBtnLabel"
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/settingsCancelBtnLabel"
             />
-    </LinearLayout>      
+        </LinearLayout>
     
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
+
