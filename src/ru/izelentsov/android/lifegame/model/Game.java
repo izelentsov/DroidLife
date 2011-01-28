@@ -8,15 +8,11 @@ public class Game {
 	
 	
 	public interface IListener {
-		public void newGeneration ();
 		public void generationChanged ();
 	}
 	
 	
 	private class VoidListener implements IListener {
-		@Override
-		public void newGeneration () {
-		}
 		@Override
 		public void generationChanged () {
 		}
@@ -25,6 +21,7 @@ public class Game {
 
 	
 	private Generation currentGen = null;
+	private GameConf startConf = null;
 	private Rules rules = null;
 	private IListener listener = null;
 	private int generationNumber = 1;
@@ -33,6 +30,7 @@ public class Game {
 	
 	public Game (int aWidth, int aHeight, Rules aRules) {
 		currentGen = new Generation (aWidth, aHeight);
+		startConf = currentGen.getConfiguration ();
 		rules = aRules;
 		listener = new VoidListener ();
 	}
@@ -43,7 +41,7 @@ public class Game {
 	}
 	
 
-	public void resetGenerationNumber () {
+	private void resetGenerationNumber () {
 		generationNumber = 1;
 	}
 	
@@ -64,17 +62,23 @@ public class Game {
 	}
 	
 	
-	private void setGeneration (Generation aGeneration) {
+	private void resetGeneration (Generation aGeneration) {
 		currentGen = aGeneration;
-		listener.newGeneration ();
+		resetGenerationNumber ();
+		listener.generationChanged ();
+	}
+	
+	
+	public void setStartConf () {
+		setConf (startConf);
 	}
 	
 	
 	public void setConf (GameConf aConf) {
-		currentGen = new Generation (currentGen.width (), currentGen.height ());
-		aConf.applyTo (currentGen);
-		resetGenerationNumber ();
-		listener.generationChanged ();
+		Generation newGen = new Generation (currentGen.width (), currentGen.height ());
+		aConf.applyTo (newGen);
+		resetGeneration (newGen);
+		startConf = newGen.getConfiguration ();
 	}
 	
 	public GameConf getConf () {
@@ -117,8 +121,7 @@ public class Game {
 	}
 	
 	public void clear () {
-		setGeneration (new Generation (currentGen.width (), currentGen.height ()));
-		resetGenerationNumber ();
+		resetGeneration (new Generation (currentGen.width (), currentGen.height ()));
 	}
 
 	

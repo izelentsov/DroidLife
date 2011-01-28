@@ -15,7 +15,6 @@ public class GameView {
 
 	
 	private interface IGameViewController {
-		public void modelChanged ();
 		public void modelUpdated ();
 	}
 	
@@ -101,17 +100,6 @@ public class GameView {
 	private class GameListener implements Game.IListener {
 
 		@Override
-		public void newGeneration () {
-			rootView.post (new Runnable () {
-				@Override
-				public void run () {
-					genCountValue.setText (String.valueOf (game.generationNumber ()));
-					gameViewController.modelChanged ();
-				}
-			});
-		}
-
-		@Override
 		public void generationChanged () {
 			rootView.post (new Runnable () {
 				@Override
@@ -137,11 +125,6 @@ public class GameView {
 			grid.setListener (this);
 		}
 		
-		@Override
-		public void modelChanged () {
-			grid.invalidate ();
-		}
-
 		@Override
 		public void modelUpdated () {
 			grid.invalidate ();
