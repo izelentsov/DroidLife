@@ -29,6 +29,7 @@ public class GameView {
 	private Button runButton = null;
 	private Button stepButton = null;
 	private Button clearButton = null;
+	private Button resetButton = null;
 	
 	private TextView genCountValue = null;
 	
@@ -73,6 +74,14 @@ public class GameView {
 			@Override
 			public void onClick (View v) {
 				gameController.clearRequested ();
+			}
+		});
+    	
+    	resetButton = (Button) anActivity.findViewById (R.id.resetBtn);
+    	resetButton.setOnClickListener (new View.OnClickListener() {
+			@Override
+			public void onClick (View v) {
+				gameController.resetRequested ();
 			}
 		});
     	

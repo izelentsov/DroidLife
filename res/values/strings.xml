@@ -8,6 +8,7 @@
     <string name="stopBtnLabel">Стоп</string>
     <string name="stepBtnLabel">Шаг</string>
     <string name="clearBtnLabel">Очистить</string>
+    <string name="resetBtnLabel">Сброс</string>
     <string name="genCountLabel">Поколение: </string>
     <string name="intervalSettingLabel">Интервал шага, мс</string>
     <string name="customRulesCheckBoxLabel">Пользовательские правила</string>

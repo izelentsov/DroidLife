@@ -49,6 +49,10 @@ public class GameController {
 		game.clear ();
 	}
 	
+	public void resetRequested () {
+		game.setStartConf ();
+	}
+	
 	
 	public void runToggleRequested () {
 		if (runTimer != null) {
@@ -71,6 +75,9 @@ public class GameController {
 	public boolean isRunning () {
 		return runTimer != null;
 	}
+
+
+
 
 
 }

@@ -101,6 +101,14 @@
             android:text="@string/clearBtnLabel"
             android:gravity="center_horizontal|center_vertical"
             />
+        <Button
+            android:id="@+id/resetBtn" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/resetBtnLabel"
+            android:gravity="center_horizontal|center_vertical"
+            />            
     
     </LinearLayout>
 
