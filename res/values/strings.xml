@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_version">0.1.0</string>
+    <string name="app_name">DroidLife game</string>
+
     <string name="hello">Hello World, LifeGameActivity!</string>
-    <string name="app_name">Life Game</string>
     <string name="settings_act_name">Life Game Settings</string>
     <string name="conf_save_act_name">Life Game ConfSave</string>
     <string name="runBtnLabel">Пуск</string>
@@ -15,9 +17,12 @@
     <string name="neighsToAliveSettingLabel">Соседей для оживания</string>
     <string name="minNeighsToLiveSettingLabel">Мин. соседей для жизни</string>
     <string name="maxNeighsToLiveSettingLabel">Макс. соседей для жизни</string>
+    
     <string name="miClear">Очистить</string>
     <string name="miSettings">Настройки</string>
     <string name="miSaveConf">Сохранить</string>
+    <string name="miAbout">О программе</string>
+    
     <string name="settingsConfirmBtnLabel">Применить</string>
     <string name="settingsCancelBtnLabel">Отмена</string>
     <string name="confSaveLoadNameLabel">Введите имя конфигурации</string>
@@ -32,6 +37,7 @@
     <string name="confDeleteAcceptLabel">Да</string>
     <string name="confDeleteRejectLabel">Отмена</string>
     <string name="confNoConfOKLabel">OK</string>
+    <string name="aboutCloseBtnLabel">Закрыть</string>
     
     
     <string name="confSavedMsg">Конфигурация сохранена</string>
