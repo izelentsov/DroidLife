@@ -63,7 +63,7 @@ public class ConfSaveLoadActivity extends Activity {
 	protected void onStart () {
 		super.onStart ();
 		setChoiceEnabled ();
-		view.enableActions ();
+//		view.enableActions ();
 	}
 
 	

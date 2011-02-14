@@ -68,7 +68,7 @@ public class ConfSaveLoadView {
 
 	private void setupControls (Activity anActivity) {
 		confNameEdit = (EditText) anActivity.findViewById (R.id.confSaveEdit);
-		confNameEdit.setOnEditorActionListener (new NameEditListener ());
+//		confNameEdit.setOnEditorActionListener (new NameEditListener ());
 		
 		saveButton = (Button) anActivity.findViewById (R.id.confSaveBtn);
 		saveButton.setOnClickListener (new OnClickListener () {
