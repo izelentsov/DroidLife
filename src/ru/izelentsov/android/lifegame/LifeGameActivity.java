@@ -8,6 +8,8 @@ import ru.izelentsov.android.lifegame.model.ConfStorage;
 import ru.izelentsov.android.lifegame.model.GameConf;
 import ru.izelentsov.android.lifegame.view.GameView;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -79,6 +81,9 @@ public class LifeGameActivity extends Activity {
     		return true;
     	case R.id.miSaveConf:
     		startConfSaveActivity ();
+    		return true;
+    	case R.id.miAbout:
+    		showAbout ();
     		return true;
     	default:
     		return super.onOptionsItemSelected (item);
@@ -172,5 +177,25 @@ public class LifeGameActivity extends Activity {
 	}
 	
 	
+	
+	
+	private void showAbout () {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage (aboutMessage ())
+		       .setPositiveButton (R.string.aboutCloseBtnLabel, 
+		    		   new DialogInterface.OnClickListener() {
+		    	   			public void onClick(DialogInterface dialog, int id) {
+		    	   				dialog.cancel();
+		    	   			}
+		       		});
+		AlertDialog d = builder.create();
+		d.show ();
+	}
     
+	
+	private String aboutMessage () {
+		return getResources ().getText (R.string.app_name) + "\n" + 
+				getResources ().getText (R.string.app_version);
+	}
+	
 }
